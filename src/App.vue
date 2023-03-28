@@ -2,19 +2,15 @@
   <div>
     <ul>
       <li v-for="item in items" :key="item.id">
-        <span>
-            {{ item.name.length > 5 ? item.name.slice(0, 5) : item.name }}
+        <span :title="item.name" 
+              v-if="item.name.length > 5"
+              :mouseenter="activeTooltip = item.id" 
+              :mouseleave="activeTooltip = null">
+          {{ item.name.substring(0, 5) + '...' }}
         </span>
-
-        <span
-          v-if="item.name.length > 5"
-          :title="item.name"
-          :mouseenter="activeTooltip = item.id"
-          :mouseleave="activeTooltip = null"
-        >
-          ...
+        <span v-else>
+          {{ item.name }}
         </span>
-        <div v-if="activeTooltip === item.id" class="tooltip">{{ item.name }}</div>
       </li>
     </ul>
   </div>
